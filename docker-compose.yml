@@ -1,0 +1,28 @@
+version: '3.7'
+
+networks:
+  ai-net:
+      driver: bridge
+services:
+###########################################################
+    ultralitics_ai:
+        hostname: ai
+        container_name: ai
+        build: .
+#        image: ultralytics/yolov5
+#        command: nvidia-smi
+#         ipc: host
+        networks:
+          - ai-net
+#        deploy:
+#           resources:
+#             reservations:
+#               devices:
+#                 - capabilities: [gpu]
+        logging:
+          driver: "json-file"
+          options:
+            max-file: "3"
+            max-size: 100m
+        privileged: true
+############################################################
