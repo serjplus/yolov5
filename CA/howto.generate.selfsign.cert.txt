@@ -1,0 +1,4 @@
+#!/bin/bash
+openssl req -new -x509 -nodes -subj "/CN=my.root" -newkey rsa:4096 -keyout ca.key -out ca.crt -reqexts v3_req -extensions v3_ca
+openssl req -new -nodes -sha256 -newkey rsa:2048 -keyout privkey.pem -config ext.conf -out testdomain.csr
+openssl x509 -req -in testdomain.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out fullchain.pem -days 3650 -sha256 -extfile ext.conf -extensions req_ext
