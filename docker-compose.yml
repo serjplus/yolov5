@@ -4,11 +4,28 @@ networks:
   ai-net:
       driver: bridge
 services:
+###############################################################
+    nginx:
+        hostname: nginx
+        container_name: nginx
+        build: ./images/nginx
+        restart: always
+        ports:
+          - "80:80"
+          - "443:443"
+#        volumes:
+#          - ./conf/hosts:/etc/nginx/conf.d
+#          - ./conf/www:/var/www
+#          - ./conf/logs:/var/log/nginx
+#          - ./CA:/etc/ssl/
+        networks:
+          - ai-net
+        privileged: true
 ###########################################################
     ultralitics_ai:
         hostname: ai
         container_name: ai
-        build: .
+        build: ./images/ai
 #        image: ultralytics/yolov5
 #        command: nvidia-smi
 #         ipc: host
